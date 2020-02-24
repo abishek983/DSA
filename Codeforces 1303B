@@ -1,0 +1,20 @@
+// https://codeforces.com/contest/1303/problem/B
+#include<bits/stdc++.h>
+#define ll long long int
+using namespace std;
+
+int main(){
+    ios::sync_with_stdio(false);
+    int t; cin >> t;
+    while(t--){
+        ll n,g,b; cin >> n >> g >> b;
+        ll temp = (n+1)/2;
+        ll ans = (temp/g) * (g+b);
+        if(temp%g==0ll)
+            ans -=b;
+        else
+            ans += (temp%g);
+        cout << max(ans,n) <<endl;
+    }
+    return 0;
+}
