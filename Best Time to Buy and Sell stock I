@@ -1,0 +1,38 @@
+//https://leetcode.com/problems/best-time-to-buy-and-sell-stock/submissions/
+
+class Solution {
+public:
+    /*
+        7 1 5 3 6 4
+        7 1 1 1 1 1
+        6 6 6 6 6 4   
+    */
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size()-1;
+        if(n<=0)
+            return 0;
+        vector<pair<int,int>> dp(prices.size());
+        dp[0].first = prices[0];
+        for(int i=1;i<prices.size();i++){
+            if(dp[i-1].first>prices[i])
+                dp[i].first = prices[i];
+            else
+                dp[i].first = dp[i-1].first;
+        }
+        dp[n].second = prices[n];
+        for(int i=n-1;i>=0;i--){
+            if(dp[i+1].second<prices[i])
+                dp[i].second = prices[i];
+            else
+                dp[i].second = dp[i+1].second;
+        }
+        int ans = INT_MIN;
+        for(int i=0;i<=n;i++){
+            ans = max(ans,dp[i].second-dp[i].first);
+        }
+        
+        if(ans<0)
+            return 0;
+        return ans;
+    }
+};
